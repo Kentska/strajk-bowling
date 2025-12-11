@@ -1,3 +1,4 @@
+import React from 'react';
 import './Navigation.scss';
 import navicon from '../../assets/navicon.svg';
 import { useNavigate } from 'react-router-dom';
