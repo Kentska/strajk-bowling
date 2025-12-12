@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import BookingInfo from './BookingInfo';
 import '@testing-library/jest-dom';
 
+//Acceptanskriterium: Användare ska kunna välja datum och tid från ett kalender- och tidvalssystem.
 describe('BookingInfo', () => {
   test('låter användaren välja datum och tid', () => {
     const mockUpdate = vi.fn();
@@ -19,6 +20,7 @@ describe('BookingInfo', () => {
     expect(mockUpdate).toHaveBeenCalledWith(expect.any(Object));
   });
 
+  //Acceptanskriterium: Användare ska kunna ange antal spelare (minst 1)
   test('låter användaren ange antal spelare', () => {
     const mockUpdate = vi.fn();
     render(<BookingInfo updateBookingDetails={mockUpdate} />);

@@ -29,7 +29,7 @@ function Wrapper() {
     </>
   );
 }
-
+//Acceptanskriterium: Reserverar 1 bana för 4 spelare
 describe('BookingInfo med logik för banor', () => {
   test('reserverar 1 bana för 4 spelare', () => {
     render(<Wrapper />);
@@ -38,7 +38,7 @@ describe('BookingInfo med logik för banor', () => {
 
     expect(screen.getByTestId('lanes-info')).toHaveTextContent('1 banor reserverade');
   });
-
+  //Acceptanskriterium: Reserverar 2 banor för 6 spelare
   test('reserverar 2 banor för 6 spelare', () => {
     render(<Wrapper />);
     const peopleInput = screen.getByLabelText(/number of awesome bowlers/i);
@@ -47,6 +47,7 @@ describe('BookingInfo med logik för banor', () => {
     expect(screen.getByTestId('lanes-info')).toHaveTextContent('2 banor reserverade');
   });
 
+  //Acceptanskriterium: Reserverar 3 banor för 10 spelare
   test('reserverar 3 banor för 10 spelare', () => {
     render(<Wrapper />);
     const peopleInput = screen.getByLabelText(/number of awesome bowlers/i);
@@ -55,12 +56,13 @@ describe('BookingInfo med logik för banor', () => {
     expect(screen.getByTestId('lanes-info')).toHaveTextContent('3 banor reserverade');
   });
 
+  //Acceptanskriterium: Validera att minst 1 spelare krävs
   test('validerar att minst 1 spelare krävs', () => {
     render(<Wrapper />);
     const peopleInput = screen.getByLabelText(/number of awesome bowlers/i);
     fireEvent.change(peopleInput, { target: { value: '0' } });
 
-    // ingen lanes-info ska visas
+    
     expect(screen.queryByTestId('lanes-info')).toBeNull();
   });
 });
