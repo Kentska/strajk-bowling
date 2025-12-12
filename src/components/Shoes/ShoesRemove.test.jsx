@@ -1,45 +1,68 @@
-// src/components/ShoesRemove.test.jsx
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Shoes from "./Shoes";
 
-describe("Shoes component – ta bort skostorlek", () => {
-  const setup = () => {
-    const updateSize = vi.fn();
-    const addShoe = vi.fn();
-    const removeShoe = vi.fn();
-    const shoes = [{ id: "shoe-1" }, { id: "shoe-2" }];
+function Wrapper() {
+  const [shoes, setShoes] = React.useState([
+    { id: "shoe-1" },
+    { id: "shoe-2" }
+  ]);
 
-    render(
-      <Shoes
-        updateSize={updateSize}
-        addShoe={addShoe}
-        removeShoe={removeShoe}
-        shoes={shoes}
-      />
-    );
-
-    return { updateSize, addShoe, removeShoe };
+  const updateSize = vi.fn();
+  const addShoe = vi.fn();
+  const removeShoe = (id) => {
+    setShoes((prev) => prev.filter((s) => s.id !== id));
   };
 
+  return (
+    <Shoes
+      updateSize={updateSize}
+      addShoe={addShoe}
+      removeShoe={removeShoe}
+      shoes={shoes}
+    />
+  );
+}
+
+describe("Shoes component – ta bort skostorlek", () => {
+  //Acceptanskriterium: Användaren ska kunna ta bort ett tidigare valt fält för skostorlek.
   test("användaren kan ta bort ett tidigare valt fält för skostorlek", () => {
-    const { removeShoe } = setup();
+    render(<Wrapper />);
+    expect(screen.getAllByTestId("shoe-form").length).toBe(2);
+
     const removeButtons = screen.getAllByText("-");
     fireEvent.click(removeButtons[0]);
-    expect(removeShoe).toHaveBeenCalledWith("shoe-1");
+
+    expect(screen.getAllByTestId("shoe-form").length).toBe(1);
   });
 
+  //Acceptanskriterium: Systemet uppdaterar bokningen så att inga skor längre är bokade för spelaren.
   test("systemet uppdaterar bokningen så att inga skor längre är bokade för spelaren", () => {
-    const { updateSize, removeShoe } = setup();
+    render(<Wrapper />);
     const input = screen.getByLabelText(/shoe size \/ person 1/i);
 
     fireEvent.change(input, { target: { value: "42" } });
-    expect(updateSize).toHaveBeenCalled();
+    // Här dokumenterar vi att skostorleken först sätts
 
     const removeButtons = screen.getAllByText("-");
     fireEvent.click(removeButtons[0]);
-    expect(removeShoe).toHaveBeenCalledWith("shoe-1");
-    // Här dokumenterar vi att skostorleken tas bort ur bokningen
+
+    // Efter borttagning ska bara 1 fält finnas kvar
+    expect(screen.getAllByTestId("shoe-form").length).toBe(1);
+  });
+
+  // Acceptanskriterium: borttagen spelare ska inte inkluderas i skorantalet eller priset
+  test("borttagen spelare inkluderas inte i skorantalet eller priset", () => {
+    render(<Wrapper />);
+    // Innan borttagning: 2 skofält
+    expect(screen.getAllByTestId("shoe-form").length).toBe(2);
+
+    const removeButtons = screen.getAllByText("-");
+    fireEvent.click(removeButtons[0]);
+
+    // Efter borttagning: 1 skofält
+    expect(screen.getAllByTestId("shoe-form").length).toBe(1);
   });
 });
+

@@ -1,4 +1,3 @@
-// src/components/BookingConfirmation.test.logic.jsx
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
@@ -30,14 +29,16 @@ function BookingConfirmation({ players, lanes }) {
     </div>
   );
 }
-
+//Acceptanskriterium: Användaren ska kunna slutföra bokningen genom att klicka på en "slutför bokning"-knapp.
+//Acceptanskriterium: Systemet ska generera ett bokningsnummer och visa detta till användaren efter att bokningen är slutförd.
 describe("BookingConfirmation", () => {
   test("användaren kan slutföra bokningen och få bokningsnummer", () => {
     render(<BookingConfirmation players={4} lanes={1} />);
     fireEvent.click(screen.getByText(/slutför bokning/i));
     expect(screen.getByTestId("confirmation")).toHaveTextContent(/Bokningsnummer:/);
   });
-
+  //Acceptanskriterium: Systemet ska beräkna och visa den totala kostnaden för bokningen baserat på antal spelare och banor.
+  //Acceptanskriterium: Den totala summan ska visas tydligt på bekräftelsesidan och inkludera en uppdelning mellan spelare och banor.
   test("systemet beräknar totalsumma korrekt", () => {
     render(<BookingConfirmation players={4} lanes={1} />);
     fireEvent.click(screen.getByText(/slutför bokning/i));

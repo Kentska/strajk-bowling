@@ -1,4 +1,3 @@
-// src/components/Shoes.test.jsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import React from 'react';
@@ -21,7 +20,7 @@ describe('Shoes component', () => {
 
     return { updateSize, addShoe, removeShoe };
   };
-
+  //Acceptanskriterium: Användaren ska kunna ange skostorlek för varje spelare.
   test('användaren kan ange skostorlek för varje spelare', () => {
     const { updateSize } = setup();
     const input1 = screen.getByLabelText(/shoe size \/ person 1/i);
@@ -32,7 +31,7 @@ describe('Shoes component', () => {
 
     expect(updateSize).toHaveBeenCalledTimes(2);
   });
-
+  //Acceptanskriterium: Användaren ska kunna ändra skostorlek för en spelare.
   test('användaren kan ändra skostorlek för en spelare', () => {
     const { updateSize } = setup();
     const input1 = screen.getByLabelText(/shoe size \/ person 1/i);
@@ -42,7 +41,7 @@ describe('Shoes component', () => {
 
     expect(updateSize).toHaveBeenCalledTimes(2);
   });
-
+  //Acceptanskriterium: Det går att välja skostorlek för alla spelare som ingår i bokningen.
   test('det går att välja skostorlek för alla spelare i bokningen', () => {
     const { updateSize } = setup([{ id: 'shoe-1' }, { id: 'shoe-2' }, { id: 'shoe-3' }]);
     const inputs = [
