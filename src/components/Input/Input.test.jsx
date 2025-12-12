@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
 describe('Input component', () => {
+	// Acceptanskriterium: Fältet ska renderas med label och rätt props
   test('renderar label och input med rätt props', () => {
     const mockChange = vi.fn();
     render(
@@ -24,7 +25,7 @@ describe('Input component', () => {
     expect(input).toHaveAttribute('name', 'players');
     expect(input).toHaveValue(2);
   });
-
+  // Acceptanskriterium: Fältet ska trigga handleChange när värdet ändras
   test('triggar handleChange när värdet ändras', () => {
     const mockChange = vi.fn();
     render(
@@ -42,7 +43,7 @@ describe('Input component', () => {
     expect(mockChange).toHaveBeenCalled();
     expect(input).toHaveValue('2025-12-11');
   });
-
+  // Acceptanskriterium: Fältet kan vara disabled
   test('kan vara disabled', () => {
     render(
       <Input
@@ -56,7 +57,7 @@ describe('Input component', () => {
     const input = screen.getByLabelText(/disabled field/i);
     expect(input).toBeDisabled();
   });
-
+  // Acceptanskriterium: Fältet accepterar maxLength
   test('accepterar maxLength', () => {
     render(
       <Input
