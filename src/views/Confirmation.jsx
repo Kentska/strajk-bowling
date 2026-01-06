@@ -1,3 +1,4 @@
+import React from "react";
 import "./Confirmation.scss";
 import { useLocation } from "react-router-dom";
 
@@ -48,7 +49,10 @@ function Confirmation() {
           />
           <article className="confirmation__price">
             <p>Total:</p>
-            <p>{confirmation.price} sek</p>
+            <p data-testid="total-price">{confirmation.price} sek</p>
+            {/* data-testid används här eftersom originalkoden inte får ändras och 
+			 elementet saknar unik text/struktur som gör det möjligt att selektera 
+			 det stabilt i tester.*/}
           </article>
           <button className="button confirmation__button">
             Sweet, let's go!
@@ -62,3 +66,4 @@ function Confirmation() {
 }
 
 export default Confirmation;
+
