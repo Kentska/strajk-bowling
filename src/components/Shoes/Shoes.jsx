@@ -8,7 +8,10 @@ function Shoes({ updateSize, addShoe, removeShoe, shoes }) {
   const shoeComps = shoes.map((input, index) => {
     const label = `Shoe size / person ${index + 1}`;
     const shoeInput = (
-		//Lagt till data-testid="shoe-form" för att kunna räkna antalet skor i tester
+// data-testid används här eftersom komponenten renderar dynamiska skofält
+// med identiska labels och knappar. Detta gör det möjligt att testa
+// att fält läggs till och tas bort utan att ändra komponentens logik.
+
       <article className="shoes__form" key={input.id} data-testid="shoe-form">
         <Input
           label={label}

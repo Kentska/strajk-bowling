@@ -1,3 +1,4 @@
+import React from "react";
 import './Top.scss';
 import logo from '../../assets/strajk-logo.svg';
 
