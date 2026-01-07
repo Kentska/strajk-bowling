@@ -31,7 +31,7 @@ describe('BookingInfo', () => {
     expect(peopleInput).toHaveValue(4);
     expect(mockUpdate).toHaveBeenCalled();
   });
-
+//Acceptanskriterium: Användaren ska kunna reservera en eller flera banor beroende på antal spelare.
   test('låter användaren ange antal banor', () => {
     const mockUpdate = vi.fn();
     render(<BookingInfo updateBookingDetails={mockUpdate} />);
